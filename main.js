@@ -1,4 +1,4 @@
-// Firebase Configuration
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyDcxwqjoFEUYKTwiuQKMkAfG9y9HZFPCVg",
   authDomain: "smau-256.firebaseapp.com",
@@ -13,17 +13,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Auth redirect check for dashboard
-if (window.location.pathname.includes("dashboard.html") && sessionStorage.getItem("isLoggedIn") !== "true") {
-  window.location.href = "index.html";
-}
-
-// Format currency
+// Format UGX
 function formatUGX(num) {
   return "UGX " + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-// Update balances in the UI
+// Update dashboard UI
 function updateUI(balances) {
   document.getElementById('fixed-account').textContent = formatUGX(balances.fixed);
   document.getElementById('savings').textContent = "Savings: " + formatUGX(balances.savings);
@@ -33,7 +28,7 @@ function updateUI(balances) {
   );
 }
 
-// Get balances from Firebase
+// Get balances from DB
 function getBalances() {
   db.ref("balances").once("value", snapshot => {
     if (snapshot.exists()) {
@@ -42,7 +37,7 @@ function getBalances() {
   });
 }
 
-// Update balances every 30 mins
+// Update balances periodically
 function updateBalances() {
   db.ref("balances").once("value", snapshot => {
     if (snapshot.exists()) {
@@ -59,27 +54,35 @@ function updateBalances() {
   });
 }
 
-// Run only on dashboard
-if (window.location.pathname.includes("dashboard.html")) {
-  getBalances();
-  setInterval(updateBalances, 1800000); // 30 mins
-}
-
 // Login logic
 if (window.location.pathname.includes("index.html") || window.location.pathname === "/") {
-  document.getElementById("login-form").addEventListener("submit", function (e) {
-    e.preventDefault();
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const errorDiv = document.getElementById("error-message");
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorDiv = document.getElementById("error-message");
 
-    if (username === "MWEZRA" && password === "peacock123") {
-      sessionStorage.setItem("isLoggedIn", "true");
-      window.location.href = "dashboard.html";
-    } else {
-      errorDiv.textContent = "Invalid login credentials.";
-    }
-  });
+      if (username === "MWEZRA" && password === "peacock123") {
+        sessionStorage.setItem("isLoggedIn", "true");
+        window.location.href = "dashboard.html";
+      } else {
+        errorDiv.textContent = "Invalid login credentials.";
+      }
+    });
+  }
+}
+
+// Protect dashboard access
+if (window.location.pathname.includes("dashboard.html")) {
+  if (sessionStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "index.html";
+  } else {
+    // Auth passed, run dashboard logic
+    getBalances();
+    setInterval(updateBalances, 1800000); // every 30 mins
+  }
 }
 
