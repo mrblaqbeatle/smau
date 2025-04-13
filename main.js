@@ -12,6 +12,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+const auth = firebase.auth();
 
 // Format UGX
 function formatUGX(num) {
@@ -61,32 +62,30 @@ if (window.location.pathname.includes("index.html") || window.location.pathname 
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
       const errorDiv = document.getElementById("error-message");
 
-      if (username === "MWEZRA" && password === "peacock123") {
-        sessionStorage.setItem("isLoggedIn", "true");
-        console.log("Login successful, redirecting to dashboard...");
-        window.location.href = "dashboard.html";
-      } else {
-        errorDiv.textContent = "Invalid login credentials.";
-      }
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "dashboard.html";
+        })
+        .catch((error) => {
+          errorDiv.textContent = "Invalid credentials. Please try again.";
+        });
     });
   }
 }
 
 // Protect dashboard access
 if (window.location.pathname.includes("dashboard.html")) {
-  if (sessionStorage.getItem("isLoggedIn") !== "true") {
-    console.log("User not logged in, redirecting to index...");
-    window.location.href = "index.html";
-  } else {
-    console.log("User is logged in, loading dashboard...");
-    // Auth passed, run dashboard logic
-    getBalances();
-    setInterval(updateBalances, 1800000); // every 30 mins
-  }
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      getBalances();
+      setInterval(updateBalances, 1800000); // every 30 mins
+    } else {
+      window.location.href = "index.html";
+    }
+  });
 }
-
 
