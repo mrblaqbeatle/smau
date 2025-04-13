@@ -1,0 +1,178 @@
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0e0e0e;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Login Page Styles */
+.login-container {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-container h1 {
+  color: #ff0000;
+  margin-bottom: 10px;
+}
+
+.login-container h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: #000000;
+  border: 1px solid #ff0000;
+  color: #fff;
+  border-radius: 8px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #cc0000;
+}
+
+.error-message {
+  color: #ff3333;
+  margin-top: 10px;
+}
+
+/* Dashboard Page Styles */
+.dashboard-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+header h1 {
+  font-size: 2em;
+  color: #ff0000;
+}
+
+.membership-status {
+  margin-top: 5px;
+  color: #aaaaaa;
+  font-style: italic;
+}
+
+section {
+  margin-top: 40px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+}
+
+section h2 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ff0000;
+  padding-bottom: 5px;
+}
+
+section p,
+section ul {
+  margin-top: 10px;
+}
+
+section ul {
+  list-style-type: none;
+}
+
+section ul li {
+  padding: 5px 0;
+  color: #dddddd;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ff0000;
+  background-color: #000;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.contact-form button {
+  padding: 12px 20px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #cc0000;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px 10px;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 1.5em;
+  }
+}
+
+/* Blinking effect */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.blinking {
+  animation: blink 1s infinite;
+  color: #ff5555;
+  font-weight: bold;
+}

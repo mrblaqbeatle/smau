@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMAU Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>Welcome, Mwanani Ezra</h1>
+      <p class="membership-status">Third Class Member</p>
+    </header>
+
+    <section class="account-balance">
+      <h2>Account Overview</h2>
+      <p>Total Funds: <strong id="total-funds">Loading...</strong></p>
+      <ul>
+        <li>Fixed Account: <span id="fixed-account">Loading...</span></li>
+        <li id="savings" class="blinking">Savings: Loading...</li>
+        <li>Investment: <span id="investment">Loading...</span></li>
+      </ul>
+    </section>
+
+    <section class="membership-stats">
+      <h2>Membership Activity</h2>
+      <ul>
+        <li>Meetings Attended: 103</li>
+        <li>Meetings Missed: 87</li>
+        <li>Violations: 0</li>
+      </ul>
+    </section>
+
+    <section class="contact-form">
+      <h2>Contact Association Heads</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="text" placeholder="Subject" required />
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send Mail</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>© 2025 Stingy Men's Association UG. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
