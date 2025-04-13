@@ -67,6 +67,7 @@ if (window.location.pathname.includes("index.html") || window.location.pathname 
 
       if (username === "MWEZRA" && password === "peacock123") {
         sessionStorage.setItem("isLoggedIn", "true");
+        console.log("Login successful, redirecting to dashboard...");
         window.location.href = "dashboard.html";
       } else {
         errorDiv.textContent = "Invalid login credentials.";
@@ -78,11 +79,14 @@ if (window.location.pathname.includes("index.html") || window.location.pathname 
 // Protect dashboard access
 if (window.location.pathname.includes("dashboard.html")) {
   if (sessionStorage.getItem("isLoggedIn") !== "true") {
+    console.log("User not logged in, redirecting to index...");
     window.location.href = "index.html";
   } else {
+    console.log("User is logged in, loading dashboard...");
     // Auth passed, run dashboard logic
     getBalances();
     setInterval(updateBalances, 1800000); // every 30 mins
   }
 }
+
 
