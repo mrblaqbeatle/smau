@@ -70,7 +70,7 @@ if (window.location.pathname.includes("index.html") || window.location.pathname 
         .then(() => {
           window.location.href = "dashboard.html";
         })
-        .catch((error) => {
+        .catch(() => {
           errorDiv.textContent = "Invalid credentials. Please try again.";
         });
     });
@@ -82,10 +82,27 @@ if (window.location.pathname.includes("dashboard.html")) {
   auth.onAuthStateChanged((user) => {
     if (user) {
       getBalances();
-      setInterval(updateBalances, 1800000); // every 30 mins
+      setInterval(updateBalances, 1800000); // every 30 minutes
+
+      // Setup logout button listener
+      const logoutBtn = document.getElementById("logout-btn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", logout);
+      }
     } else {
       window.location.href = "index.html";
     }
   });
+}
+
+// Logout handler
+function logout() {
+  auth.signOut()
+    .then(() => {
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+      console.error("Logout error:", error.message);
+    });
 }
 

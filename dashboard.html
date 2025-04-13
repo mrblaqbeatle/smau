@@ -14,7 +14,7 @@
     <header>
       <h1>Welcome, Mwanani Ezra</h1>
       <p class="membership-status">Third Class Member</p>
-      <button onclick="logout()" style="margin-top: 10px;">Logout</button>
+      <button id="logout-btn" class="logout-btn">Logout</button>
     </header>
 
     <section class="account-balance">
@@ -51,33 +51,6 @@
     </footer>
   </div>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDcxwqjoFEUYKTwiuQKMkAfG9y9HZFPCVg",
-      authDomain: "smau-256.firebaseapp.com",
-      projectId: "smau-256",
-      storageBucket: "smau-256.firebasestorage.app",
-      messagingSenderId: "76824679086",
-      appId: "1:76824679086:web:938d91f86a44c67ec3533f",
-      measurementId: "G-E18K7HRKBQ",
-      databaseURL: "https://smau-256-default-rtdb.firebaseio.com/"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "index.html";
-      }
-    });
-
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = "index.html";
-      });
-    }
-  </script>
   <script src="main.js"></script>
 </body>
 </html>
